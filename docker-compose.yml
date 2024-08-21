@@ -1,0 +1,18 @@
+version: '3.7'
+
+services:
+  kali-vnc:
+    build: ./kali
+    ports:
+      - "5901:5901"
+    volumes:
+      - ./data:/home/vncuser/data
+    environment:
+      DISPLAY: ":1"
+      VNC_PASSWORD: "your_password"
+    networks:
+      - my_network
+
+networks:
+  my_network:
+    driver: bridge
