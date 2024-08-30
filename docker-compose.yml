@@ -1,18 +1,39 @@
-version: '3.7'
+version: '3.8'
 
 services:
-  kali-vnc:
-    build: ./kali
+  flask-app:
+    build:
+      context: ./flask-app  # Asegúrate de que este directorio contenga tu Dockerfile
     ports:
-      - "5901:5901"
-    volumes:
-      - ./data:/home/vncuser/data
+      - "5000:5000"
+    depends_on:
+      - mysql
     environment:
-      DISPLAY: ":1"
-      VNC_PASSWORD: "your_password"
-    networks:
-      - my_network
+      - FLASK_ENV=development
+      - MYSQL_HOST=mysql
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=my-secret-pw
+      - MYSQL_DB=mydatabase
 
-networks:
-  my_network:
-    driver: bridge
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: mydatabase
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  # kali:
+  #   image: kalilinux/kali-linux-docker
+  #   container_name: kali
+  #   ports:
+  #     - "4444:4444"  # Puerto para herramientas de pruebas (ajustar según sea necesario)
+  #   stdin_open: true
+  #   tty: true
+
+volumes:
+  mysql-data:
