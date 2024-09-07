@@ -15,3 +15,4 @@ EXPOSE 5000
 
 # Comando para ejecutar la aplicación Flask
 CMD ["python", "app.py"]
+# CMD ["flask", "run", "--host","0.0.0.0"]
