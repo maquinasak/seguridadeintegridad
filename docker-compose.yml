@@ -1,36 +1,22 @@
-version: '3.8'
 
 services:
-  kali:
-    build: ./kali
-    container_name: kali_container
-    tty: true
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - /kali/xrdp:/etc/xrdp
-    ports:
-      - "3389:3389"
-    environment:
-      DISPLAY: :0
-    # command: /bin/bash -c "apt update && apt install -y xrdp && systemctl start xrdp && tail -f /var/log/xrdp.log"
-    networks:
-      - my_network
 
   mysql:
     image: mysql:8
     container_name: mysql8
     environment:
-      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_ROOT_PASSWORD: root_password
       MYSQL_DATABASE: mydatabase
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
-      - "3306:3306"
+      - "3308:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - ./mysql-data:/var/lib/mysql
+      - ./scripts:/docker-entrypoint-initdb.d/
+    command: ["mysqld", "--mysql-native-password=ON"]
     networks:
       - my_network
-
 
   flask-app:
     build:
@@ -44,15 +30,35 @@ services:
       - FLASK_ENV=development
       - MYSQL_HOST=mysql
       - MYSQL_USER=root
-      - MYSQL_PASSWORD=my-secret-pw
+      - MYSQL_PASSWORD=root_password
       - MYSQL_DB=mydatabase
     volumes:
-      - flask-app:/app
+      - ./flask-app/src:/app
     networks:
       - my_network
+  
+  
+  
+    # kali:
+  #   build: ./kali
+  #   container_name: kali_container
+  #   tty: true
+  #   volumes:
+  #     - /tmp/.X11-unix:/tmp/.X11-unix
+  #     - /kali/xrdp:/etc/xrdp
+  #   ports:
+  #     - "3389:3389"
+  #   environment:
+  #     DISPLAY: :0
+  #   # command: /bin/bash -c "apt update && apt install -y xrdp && systemctl start xrdp && tail -f /var/log/xrdp.log"
+  #   networks:
+  #     - my_network
+
+
+
 
 volumes:
-  mysql-data:
+  # mysql-data:
   flask-app:
 
 

@@ -5,10 +5,10 @@ FROM python:3.11
 WORKDIR /app
 
 # Copia los archivos de la aplicación
-COPY requirements.txt requirements.txt
+COPY src .
 RUN pip install -r requirements.txt
 
-COPY . .
+COPY ./src .
 
 # Expone el puerto en el que se ejecutará la aplicación Flask
 EXPOSE 5000
