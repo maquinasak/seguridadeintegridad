@@ -39,20 +39,20 @@ services:
   
   
   
-    # kali:
-  #   build: ./kali
-  #   container_name: kali_container
-  #   tty: true
-  #   volumes:
-  #     - /tmp/.X11-unix:/tmp/.X11-unix
-  #     - /kali/xrdp:/etc/xrdp
-  #   ports:
-  #     - "3389:3389"
-  #   environment:
-  #     DISPLAY: :0
-  #   # command: /bin/bash -c "apt update && apt install -y xrdp && systemctl start xrdp && tail -f /var/log/xrdp.log"
-  #   networks:
-  #     - my_network
+  kali:
+    build: ./kali
+    container_name: kali_container
+    tty: true
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+      - /kali/xrdp:/etc/xrdp
+    ports:
+      - "3389:3389"
+    environment:
+      DISPLAY: :0
+    # command: /bin/bash -c "apt update && apt install -y xrdp && systemctl start xrdp && tail -f /var/log/xrdp.log"
+    networks:
+      - my_network
 
 
 
