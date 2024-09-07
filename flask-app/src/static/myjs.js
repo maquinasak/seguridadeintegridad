@@ -1,10 +1,10 @@
 function mostrarDatos(lugar, datos){
 
-    let cTabla = "<table border=2><tr><td>Nombre</td><td>Apellido</td><td>Borrar</td></tr>";
+    let cTabla = "<table border=2 class='table'><tr class='sombreado'><th>Apellido</th><th>Apellido</th><th>Borrar</th></tr>";
     datos.forEach(element => {
         cTabla += `<tr><td>${element[1]}</td><td>${element[2]}</td><td><input type="button" value="X" onclick="eliminarUsuario('${element[0]}');"></td></tr>`;        
     });
-    cTabla += "</table>";
+    cTabla += "</tbody></table>";
 
     let destino=document.getElementById(lugar);
     destino.innerHTML=cTabla;
