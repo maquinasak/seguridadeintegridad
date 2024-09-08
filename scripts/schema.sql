@@ -1,11 +1,8 @@
 CREATE DATABASE IF NOT EXISTS mydatabase;
 USE mydatabase;
-CREATE TABLE IF NOT EXISTS fruits (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255) NOT NULL,
-    quantity INT NOT NULL
+CREATE TABLE IF NOT EXISTS usuarios (
+    email varchar(50) primary key,
+    nombre varchar(100),
+    apellido varchar(100),
+    fechanac date
 );
-INSERT INTO fruits (name, quantity)
-VALUES ('Apple', 10),
-    ('Banana', 20),
-    ('Cherry', 30);

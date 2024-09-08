@@ -1,6 +1,19 @@
 
 services:
 
+  nginx:
+    image: nginx:latest
+    container_name: nginx_proxy
+    ports:
+      - "80:80"  # Expose port 80 for external traffic
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Nginx configuration
+    depends_on:
+      - flask-app  # Make sure Nginx starts after the app
+    networks:
+      - front_network
+
+
   mysql:
     image: mysql:8
     container_name: mysql8
@@ -10,20 +23,20 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
-      - "3308:3306"
+      - "3306:3306"
     volumes:
       - ./mysql-data:/var/lib/mysql
       - ./scripts:/docker-entrypoint-initdb.d/
     command: ["mysqld", "--mysql-native-password=ON"]
     networks:
-      - my_network
+      - back_network
 
   flask-app:
     build:
       context: ./flask-app  # Asegúrate de que este directorio contenga tu Dockerfile
     container_name: myapp
     ports:
-      - "5000:5000"
+      - "5000" # no expone puertos fuera de docker
     depends_on:
       - mysql
     environment:
@@ -35,7 +48,8 @@ services:
     volumes:
       - ./flask-app/src:/app
     networks:
-      - my_network
+      - front_network
+      - back_network
   
   
   
@@ -52,7 +66,7 @@ services:
       DISPLAY: :0
     # command: /bin/bash -c "apt update && apt install -y xrdp && systemctl start xrdp && tail -f /var/log/xrdp.log"
     networks:
-      - my_network
+      - front_network
 
 
 
@@ -63,9 +77,10 @@ volumes:
 
 
 networks:
-  my_network:
+  front_network:
     driver: bridge
-
+  back_network:
+    driver: bridge
 
   # kali-vnc:
   #   build: ./kali
