@@ -5,40 +5,44 @@ RUN apt-get update && apt-get upgrade -y
 # Set the default shell to bash (optional)
 ENV SHELL=/bin/bash  
 
-RUN apt-get install -y \
-    nmap \
-    metasploit-framework \
-    wireshark \
-    john \
-    hydra \
-    aircrack-ng \
-    sqlmap \
-    nikto 
+# RUN apt-get install -y kali-desktop-xfce xorg xrdp
+
+RUN apt-get install -y nmap 
+RUN apt-get install -y metasploit-framework
+# RUN apt-get install -y wireshark 
+RUN apt-get install -y aircrack-ng 
+RUN apt-get install -y sqlmap 
 # owasp-zap \
 # recon-ng \
 # malware-scanner
 
 # Install additional tools (adjust based on your needs)
-RUN apt-get install -y \
-    python3-pip \
-    python3-dev \
-    build-essential \
-    git \
-    vim \
-    nano
+RUN apt-get install -y python3-pip
+RUN apt-get install -y python3-dev 
+RUN apt-get install -y build-essential 
+RUN apt-get install -y git
+# RUN apt-get install -y vim
+RUN apt-get install -y nano
 
 
 # Install Python libraries (adjust based on your needs)
-RUN pip3 install --upgrade pip && pip3 install \
-    requests \
-    beautifulsoup4 \
-    lxml \
-    scapy \
-    pyfiglet \
-    pywhatkit
+# RUN pip3 install --upgrade pip && pip3 install \
+#     requests \
+#     beautifulsoup4 \
+#     lxml \
+#     scapy \
+#     pyfiglet \
+#     pywhatkit
 
 RUN apt-get install -y xrdp 
 RUN apt-get install -y tightvncserver 
+
+RUN apt-get install -y netcat-traditional 
+
+# RUN apt-get install -y kali-linux-headless
+
+# RUN apt-get install -y kali-desktop-xfce
+
 
 # Start systemd as the default process
 # CMD ["/bin/bash", "-c", "systemctl start systemd-journald && systemctl start systemd-networkd && systemctl start systemd-timesyncd"]

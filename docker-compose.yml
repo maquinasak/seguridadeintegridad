@@ -1,8 +1,27 @@
 
 services:
 
+  client_centos:
+    build:
+      context: ./centos  # Asegúrate de que este directorio contenga tu Dockerfile
+    container_name: centos_client  
+    restart: on-failure
+    command: ["sleep", "infinity"]
+    networks:
+      - front_network
+
+  client_ubuntu:
+    build:
+      context: ./ubuntu  # Asegúrate de que este directorio contenga tu Dockerfile
+    container_name: ubuntu_client  
+    restart: on-failure
+    command: ["sleep", "infinity"]
+    networks:
+      - front_network
+
   nginx:
-    image: nginx:latest
+    build:
+      context: ./nginx  # Asegúrate de que este directorio contenga tu Dockerfile
     container_name: nginx_proxy
     ports:
       - "80:80"  # Expose port 80 for external traffic
@@ -15,7 +34,8 @@ services:
 
 
   mysql:
-    image: mysql:8
+    build:
+      context: ./mysql8
     container_name: mysql8
     environment:
       MYSQL_ROOT_PASSWORD: root_password
@@ -31,6 +51,7 @@ services:
     networks:
       - back_network
 
+
   flask-app:
     build:
       context: ./flask-app  # Asegúrate de que este directorio contenga tu Dockerfile
@@ -45,6 +66,7 @@ services:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=root_password
       - MYSQL_DB=mydatabase
+    # scale: 5
     volumes:
       - ./flask-app/src:/app
     networks:
@@ -67,8 +89,6 @@ services:
     # command: /bin/bash -c "apt update && apt install -y xrdp && systemctl start xrdp && tail -f /var/log/xrdp.log"
     networks:
       - front_network
-
-
 
 
 volumes:

@@ -72,8 +72,12 @@ def get_usuarios():
     sql = "SELECT * FROM usuarios"
     cursor.execute(sql)
     usuarios = cursor.fetchall()
+    data = {
+        "rta":"ok",
+        "usuarios": usuarios
+    }
 
-    return jsonify(usuarios)
+    return jsonify(data), 200
 
 # Endpoint to get a usuario by email
 @app.route('/usuarios/<string:email>', methods=['GET'])
