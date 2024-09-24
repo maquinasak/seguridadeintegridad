@@ -90,10 +90,16 @@ def get_usuario(email):
     cursor.execute(sql, val)
     usuario = cursor.fetchone()
 
+    data = {
+        "rta":"ok",
+    }
+
     if usuario:
-        return jsonify(usuario)
+        data["usuarios"] = usuario
+        return jsonify(data), 200
     else:
-        return jsonify({'error': 'Usuario no encontrado'}), 404
+        data["error"] = "usuario no encontrado"
+        return jsonify(data), 404
 
 # Endpoint to update a usuario
 @app.route('/usuarios/<string:email>', methods=['PUT'])
