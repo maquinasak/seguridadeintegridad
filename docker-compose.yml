@@ -19,6 +19,11 @@ services:
     networks:
       - front_network
 
+  owaspzap:
+    build:
+      context: ./owaszap  # Asegúrate de que este directorio contenga tu Dockerfile
+    container_name: owaszap_container
+
   nginx:
     build:
       context: ./nginx  # Asegúrate de que este directorio contenga tu Dockerfile
