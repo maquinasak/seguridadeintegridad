@@ -1,0 +1,15 @@
+[ req ]
+default_bits        = 4096
+default_keyfile     = privkey.pem
+prompt              = no
+default_md          = sha256
+distinguished_name  = req_distinguished_name
+
+[ req_distinguished_name ]
+countryName         = US
+stateOrProvinceName = California
+localityName        = San Francisco
+organizationName    = MyOrg
+organizationalUnitName = IT
+commonName          = example.com
+emailAddress        = admin@example.com
