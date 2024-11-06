@@ -7,22 +7,22 @@ ENV SHELL=/bin/bash
 
 # RUN apt-get install -y kali-desktop-xfce xorg xrdp
 
-RUN apt-get install -y nmap 
-RUN apt-get install -y metasploit-framework
+# RUN apt-get install -y nmap 
+# RUN apt-get install -y metasploit-framework
 # RUN apt-get install -y wireshark 
-RUN apt-get install -y aircrack-ng 
-RUN apt-get install -y sqlmap 
+# RUN apt-get install -y aircrack-ng 
+# RUN apt-get install -y git
+# RUN apt-get install -y vim
+# RUN apt-get install -y nano
+# RUN apt-get install -y sqlmap 
 # owasp-zap \
 # recon-ng \
 # malware-scanner
 
 # Install additional tools (adjust based on your needs)
-RUN apt-get install -y python3-pip
-RUN apt-get install -y python3-dev 
-RUN apt-get install -y build-essential 
-RUN apt-get install -y git
-# RUN apt-get install -y vim
-RUN apt-get install -y nano
+# RUN apt-get install -y python3-pip
+# RUN apt-get install -y python3-dev 
+# RUN apt-get install -y build-essential 
 
 
 # Install Python libraries (adjust based on your needs)
@@ -34,9 +34,10 @@ RUN apt-get install -y nano
 #     pyfiglet \
 #     pywhatkit
 
-RUN apt-get install -y xrdp 
-RUN apt-get install -y tightvncserver 
+# RUN apt-get install -y xrdp 
+# RUN apt-get install -y tightvncserver 
 
+<<<<<<< HEAD
 RUN apt-get install -y netcat-traditional 
 # RUN echo "wget -O burpsuiteinstall https://portswigger-cdn.net/burp/releases/download?product=community&version=2024.8.2&type=Linux" > burp.txt
 # RUN wget -O burpsuiteinstall https://portswigger-cdn.net/burp/releases/download?product=community&version=2024.8.2&type=Linux 
@@ -45,6 +46,9 @@ RUN apt-get install -y netcat-traditional
 
 
 # RUN apt-get install -y burpsuite 
+=======
+# RUN apt-get install -y netcat-traditional 
+>>>>>>> 63febcafce73f1012153b88a25c4d28cf83d6ad4
 
 # RUN apt-get install -y kali-linux-headless
 
