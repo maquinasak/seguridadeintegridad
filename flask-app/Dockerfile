@@ -7,9 +7,14 @@ WORKDIR /app
 # Copia los archivos de la aplicación
 COPY ./src .
 
-# instala los requerimientos
-RUN pip install -r requirements.txt
+RUN apt update
+RUN apt upgrade
+RUN apt-get install curl -y
+RUN apt-get install iputils-ping -y
 
+# instala los requerimientos
+RUN pip install --upgrade pip
+RUN pip install -r requirements.txt
 
 EXPOSE 5000
 

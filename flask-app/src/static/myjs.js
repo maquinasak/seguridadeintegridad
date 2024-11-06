@@ -42,29 +42,64 @@ function eliminarUsuario(email){
 
 
 let formNuevoUsuario = document.getElementById("nuevoUsuario");
-formNuevoUsuario.addEventListener("submit", event => {
-    event.preventDefault();
-
-    // Agrego un usuarios
-
-    let data = new FormData(formNuevoUsuario);
-    // Convert form data to a regular object (optional)
-    const formObject = {};
-    data.forEach((value, key) => {
-        formObject[key] = value;
+if(formNuevoUsuario){
+    formNuevoUsuario.addEventListener("submit", event => {
+        event.preventDefault();
+    
+        // Agrego un usuarios
+    
+        let data = new FormData(formNuevoUsuario);
+        // Convert form data to a regular object (optional)
+        const formObject = {};
+        data.forEach((value, key) => {
+            formObject[key] = value;
+        });
+        console.log(formObject);
+    
+        fetch("/usuarios", { 
+            method: "POST", 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formObject)
+        })
+        .then(response => response.json())
+        .then(data => {
+                console.log(data);
+        });
+        
     });
-    console.log(formObject);
 
-    fetch("/usuarios", { 
-        method: "POST", 
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(formObject)
-    })
-    .then(response => response.json())
-    .then(data => {
-            console.log(data);
+}
+
+
+let formLogin = document.getElementById("login");
+if (formLogin){
+    formLogin.addEventListener("submit", event => {
+        event.preventDefault();
+    
+    
+        let data = new FormData(login);
+        // Convert form data to a regular object (optional)
+        const formObject = {};
+        data.forEach((value, key) => {
+            formObject[key] = value;
+        });
+        console.log(formObject);
+    
+        fetch("/login", { 
+            method: "POST", 
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formObject)
+        })
+        .then(response => response.json())
+        .then(data => {
+                console.log(data);
+        });
+        
     });
     
-});
+}
+

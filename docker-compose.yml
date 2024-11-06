@@ -1,41 +1,41 @@
 
 services:
 
-  client_centos:
-    build:
-      context: ./centos  # Asegúrate de que este directorio contenga tu Dockerfile
-    container_name: centos_client  
-    restart: on-failure
-    command: ["sleep", "infinity"]
-    networks:
-      - front_network
+  # client_centos:
+  #   build:
+  #     context: ./centos  # Asegúrate de que este directorio contenga tu Dockerfile
+  #   container_name: centos_client  
+  #   restart: on-failure
+  #   command: ["sleep", "infinity"]
+  #   networks:
+  #     - front_network
 
-  client_ubuntu:
-    build:
-      context: ./ubuntu  # Asegúrate de que este directorio contenga tu Dockerfile
-    container_name: ubuntu_client  
-    restart: on-failure
-    command: ["sleep", "infinity"]
-    networks:
-      - front_network
+  # client_ubuntu:
+  #   build:
+  #     context: ./ubuntu  # Asegúrate de que este directorio contenga tu Dockerfile
+  #   container_name: ubuntu_client  
+  #   restart: on-failure
+  #   command: ["sleep", "infinity"]
+  #   networks:
+  #     - front_network
 
-  owaspzap:
-    build:
-      context: ./owaszap  # Asegúrate de que este directorio contenga tu Dockerfile
-    container_name: owaszap_container
+  # owaspzap:
+  #   build:
+  #     context: ./owaszap  # Asegúrate de que este directorio contenga tu Dockerfile
+  #   container_name: owaszap_container
 
-  nginx:
-    build:
-      context: ./nginx  # Asegúrate de que este directorio contenga tu Dockerfile
-    container_name: nginx_proxy
-    ports:
-      - "80:80"  # Expose port 80 for external traffic
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Nginx configuration
-    depends_on:
-      - flask-app  # Make sure Nginx starts after the app
-    networks:
-      - front_network
+  # nginx:
+  #   build:
+  #     context: ./nginx  # Asegúrate de que este directorio contenga tu Dockerfile
+  #   container_name: nginx_proxy
+  #   ports:
+  #     - "80:80"  # Expose port 80 for external traffic
+  #   volumes:
+  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Nginx configuration
+  #   depends_on:
+  #     - flask-app  # Make sure Nginx starts after the app
+  #   networks:
+  #     - front_network
 
 
   mysql:
@@ -53,8 +53,9 @@ services:
       - ./mysql-data:/var/lib/mysql
       - ./scripts:/docker-entrypoint-initdb.d/
     command: ["mysqld", "--mysql-native-password=ON"]
-    networks:
-      - back_network
+    # networks:
+    #   - front_network
+    #   - back_network
 
 
   flask-app:
@@ -62,7 +63,8 @@ services:
       context: ./flask-app  # Asegúrate de que este directorio contenga tu Dockerfile
     container_name: myapp
     ports:
-      - "5000" # no expone puertos fuera de docker
+      # - "5000" # no expone puertos fuera de docker
+      - "5000:5000" # no expone puertos fuera de docker
     depends_on:
       - mysql
     environment:
@@ -74,26 +76,25 @@ services:
     # scale: 5
     volumes:
       - ./flask-app/src:/app
-    networks:
-      - front_network
-      - back_network
+    # networks:
+    #   - front_network
+    #   - back_network
   
   
-  
-  kali:
-    build: ./kali
-    container_name: kali_container
-    tty: true
-    volumes:
-      - /tmp/.X11-unix:/tmp/.X11-unix
-      - /kali/xrdp:/etc/xrdp
-    ports:
-      - "3389:3389"
-    environment:
-      DISPLAY: :0
-    # command: /bin/bash -c "apt update && apt install -y xrdp && systemctl start xrdp && tail -f /var/log/xrdp.log"
-    networks:
-      - front_network
+  # kali:
+  #   build: ./kali
+  #   container_name: kali_container
+  #   tty: true
+  #   volumes:
+  #     - /tmp/.X11-unix:/tmp/.X11-unix
+  #     - /kali/xrdp:/etc/xrdp
+  #   ports:
+  #     - "3389:3389"
+  #   environment:
+  #     DISPLAY: :0
+  #   # command: /bin/bash -c "apt update && apt install -y xrdp && systemctl start xrdp && tail -f /var/log/xrdp.log"
+  #   # networks:
+  #   #   - front_network
 
 
 volumes:
