@@ -6,6 +6,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 # Update package lists and install OpenSSL
 RUN apt-get update 
 RUN apt-get install -y openssl 
+RUN apt-get install openssh-client -y
 RUN apt-get install -y curl 
 RUN apt-get install curl -y
 RUN apt-get install iputils-ping -y
@@ -31,6 +32,26 @@ RUN pip install -r requirements.txt
 # RUN openssl req -x509 -new -nodes -config openssl.cnf -out server.crt -keyout server.key
 RUN rm cert.pem key.pem
 RUN openssl req -x509 -newkey rsa:4096 -nodes -config openssl.cnf -out cert.pem -keyout key.pem
+
+
+# Generate an RSA private key (2048 bits)
+RUN openssl genpkey -algorithm RSA -out host_rsa_key.pem -pkeyopt rsa_keygen_bits:2048
+
+# Generate the public key corresponding to the private key
+RUN openssl rsa -in host_rsa_key.pem -pubout -out host_rsa_key.pub
+
+# Generate an ECDSA private key (256 bits, 384 bits, or 521 bits can be used)
+RUN openssl ecparam -name prime256v1 -genkey -noout -out host_ecdsa_key.pem
+
+# Generate the public key corresponding to the private key
+RUN openssl ec -in host_ecdsa_key.pem -pubout -out host_ecdsa_key.pub
+
+# Generate ED25519 key using ssh-keygen
+RUN ssh-keygen -t ed25519 -f host_ed25519_key.pem -N ""
+
+
+
+
 
 # RUN openssl req -x509 -nodes -days 365 -config openssl.cnf -newkey rsa:2048 -keyout server.key -out server.crt
 
