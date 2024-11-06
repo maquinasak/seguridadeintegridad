@@ -72,6 +72,7 @@ services:
       - MYSQL_USER=root
       - MYSQL_PASSWORD=root_password
       - MYSQL_DB=mydatabase
+      - ROOT_PASSWORD=ladesiempre123456
     # scale: 5
     volumes:
       - ./flask-app/src:/app

@@ -11,6 +11,12 @@ RUN apt-get install curl -y
 RUN apt-get install iputils-ping -y
 RUN pip install --upgrade pip
 
+RUN apt-get install procps -y
+RUN apt-get update && apt-get install -y passwd
+
+ENV ROOT_PASSWORD ladesiempre123456
+RUN echo "root:${ROOT_PASSWORD}" | chpasswd
+
 RUN rm -rf /var/lib/apt/lists/*  
 
 WORKDIR /app

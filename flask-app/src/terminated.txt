@@ -1,5 +1,5 @@
 Process terminated by:
 Signal number (si_signo): 2
-Signal code (si_code): 128
-Sending process PID (si_pid): 0
+Signal code (si_code): 0
+Sending process PID (si_pid): 24
 Sending user UID (si_uid): 0
