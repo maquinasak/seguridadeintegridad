@@ -235,15 +235,9 @@ def delete_usuario(email):
             conn.close()
 
 if __name__ == '__main__':
-<<<<<<< HEAD
     app.secret_key = 'super secret key'
     app.config['SESSION_TYPE'] = 'filesystem'
-
-
-    app.run(debug=True,host='0.0.0.0')
-=======
     # app.run(debug=True,host='0.0.0.0')
     # app.run(debug=True, host='0.0.0.0', port=443, ssl_context=('server.crt', 'server.key'))
     app.run(debug=True, host='0.0.0.0', port=443, ssl_context=('cert.pem', 'key.pem'))
 
->>>>>>> 63febcafce73f1012153b88a25c4d28cf83d6ad4

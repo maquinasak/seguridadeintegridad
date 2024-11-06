@@ -53,9 +53,8 @@ services:
       - ./mysql-data:/var/lib/mysql
       - ./scripts:/docker-entrypoint-initdb.d/
     command: ["mysqld", "--mysql-native-password=ON"]
-    # networks:
-    #   - front_network
-    #   - back_network
+    networks:
+      - back_network
 
 
   flask-app:
@@ -63,12 +62,8 @@ services:
       context: ./flask-app  # Asegúrate de que este directorio contenga tu Dockerfile
     container_name: myapp
     ports:
-<<<<<<< HEAD
       # - "5000" # no expone puertos fuera de docker
-      - "5000:5000" # no expone puertos fuera de docker
-=======
       - "8443:443" # no expone puertos fuera de docker
->>>>>>> 63febcafce73f1012153b88a25c4d28cf83d6ad4
     depends_on:
       - mysql
     environment:
@@ -85,10 +80,6 @@ services:
     #   - back_network
   
   
-<<<<<<< HEAD
-=======
-  
->>>>>>> 63febcafce73f1012153b88a25c4d28cf83d6ad4
   # kali:
   #   build: ./kali
   #   container_name: kali_container
@@ -101,13 +92,8 @@ services:
   #   environment:
   #     DISPLAY: :0
   #   # command: /bin/bash -c "apt update && apt install -y xrdp && systemctl start xrdp && tail -f /var/log/xrdp.log"
-<<<<<<< HEAD
-  #   # networks:
-  #   #   - front_network
-=======
   #   networks:
   #     - front_network
->>>>>>> 63febcafce73f1012153b88a25c4d28cf83d6ad4
 
 
 volumes:

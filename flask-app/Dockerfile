@@ -7,29 +7,19 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update 
 RUN apt-get install -y openssl 
 RUN apt-get install -y curl 
-# RUN apt-get install -y python3 python3-pip
+RUN apt-get install curl -y
+RUN apt-get install iputils-ping -y
+RUN pip install --upgrade pip
+
 RUN rm -rf /var/lib/apt/lists/*  
 
 WORKDIR /app
 
-RUN pip install --upgrade pip
 
 # Copia los archivos de la aplicación
 COPY ./src .
 
-<<<<<<< HEAD
-RUN apt update
-RUN apt upgrade
-RUN apt-get install curl -y
-RUN apt-get install iputils-ping -y
-=======
-
 # instala los requerimientos
-RUN pip install -r requirements.txt
->>>>>>> 63febcafce73f1012153b88a25c4d28cf83d6ad4
-
-# instala los requerimientos
-RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 
 # RUN openssl req -x509 -new -nodes -config openssl.cnf -out server.crt -keyout server.key
@@ -38,6 +28,18 @@ RUN openssl req -x509 -newkey rsa:4096 -nodes -config openssl.cnf -out cert.pem 
 
 # RUN openssl req -x509 -nodes -days 365 -config openssl.cnf -newkey rsa:2048 -keyout server.key -out server.crt
 
+# Create a new user and group
+RUN groupadd -r flaskgroup 
+RUN useradd -r flaskuser -g flaskgroup
+
+# Give the new user ownership of the /app directory
+RUN chown -R flaskuser:flaskgroup /app
+
+# Restrict permissions for the /app folder to the flaskuser only
+RUN chmod -R 750 /app
+
+# Switch to the new user
+USER flaskuser
 
 EXPOSE 443
 # EXPOSE 5000
