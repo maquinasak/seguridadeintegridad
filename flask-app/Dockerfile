@@ -29,8 +29,11 @@ COPY ./src .
 # instala los requerimientos
 RUN pip install -r requirements.txt
 
-# RUN openssl req -x509 -new -nodes -config openssl.cnf -out server.crt -keyout server.key
+#elimino las claves generadas
 RUN rm cert.pem key.pem
+RUN rm host_ed25519_key.pem
+
+# RUN openssl req -x509 -new -nodes -config openssl.cnf -out server.crt -keyout server.key
 RUN openssl req -x509 -newkey rsa:4096 -nodes -config openssl.cnf -out cert.pem -keyout key.pem
 
 
