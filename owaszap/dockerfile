@@ -1,1 +1,3 @@
 FROM ghcr.io/zaproxy/zaproxy:stable
+
+CMD ["zap-webswing.sh"]

@@ -8,13 +8,21 @@ ENV SHELL=/bin/bash
 RUN apt-get install -y git
 RUN apt-get install -y vim
 RUN apt-get install -y nano
-# RUN apt-get install -y netcat-traditional 
-# RUN apt-get install -y nmap 
-# RUN apt-get install -y sqlmap 
+RUN apt-get install -y nmap 
+RUN apt-get install -y netcat-traditional 
+RUN apt-get install -y sqlmap 
+RUN apt-get install -y wireshark 
+RUN apt-get install -y metasploit-framework
+RUN apt-get install -y burpsuite 
+RUN apt-get install -y curl 
+RUN apt-get install iputils-ping -y
+RUN apt-get install net-tools -y
+RUN apt-get install -y tshark 
+RUN apt-get install -y man 
+
+
 
 # RUN apt-get install -y kali-desktop-xfce xorg xrdp
-# RUN apt-get install -y wireshark 
-# RUN apt-get install -y metasploit-framework
 # RUN apt-get install -y aircrack-ng 
 # owasp-zap \
 # recon-ng \
@@ -43,9 +51,6 @@ RUN apt-get install -y nano
 # && tar -xvf burpsuiteinstall
 
 
-
-# RUN apt-get install -y burpsuite 
-# RUN apt-get install -y netcat-traditional 
 
 # RUN apt-get install -y kali-linux-headless
 
