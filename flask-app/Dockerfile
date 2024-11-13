@@ -8,7 +8,6 @@ RUN apt-get update
 RUN apt-get install -y openssl 
 RUN apt-get install openssh-client -y
 RUN apt-get install -y curl 
-RUN apt-get install curl -y
 RUN apt-get install iputils-ping -y
 RUN pip install --upgrade pip
 
@@ -34,8 +33,8 @@ RUN rm cert.pem key.pem
 RUN rm host_ed25519_key.pem
 
 # RUN openssl req -x509 -new -nodes -config openssl.cnf -out server.crt -keyout server.key
+RUN rm cert.pem key.pem host_ed25519_key.pem
 RUN openssl req -x509 -newkey rsa:4096 -nodes -config openssl.cnf -out cert.pem -keyout key.pem
-
 
 # Generate an RSA private key (2048 bits)
 RUN openssl genpkey -algorithm RSA -out host_rsa_key.pem -pkeyopt rsa_keygen_bits:2048

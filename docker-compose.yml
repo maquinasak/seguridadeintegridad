@@ -1,14 +1,14 @@
 
 services:
 
-  # client_centos:
-  #   build:
-  #     context: ./centos  # Asegúrate de que este directorio contenga tu Dockerfile
-  #   container_name: centos_client  
-  #   restart: on-failure
-  #   command: ["sleep", "infinity"]
-  #   networks:
-  #     - front_network
+  client_centos:
+    build:
+      context: ./centos  # Asegúrate de que este directorio contenga tu Dockerfile
+    container_name: centos_client  
+    restart: on-failure
+    command: ["sleep", "infinity"]
+    networks:
+      - front_network
 
   client_ubuntu:
     build:
@@ -19,23 +19,25 @@ services:
     networks:
       - front_network
 
-  # owaspzap:
-  #   build:
-  #     context: ./owaszap  # Asegúrate de que este directorio contenga tu Dockerfile
-  #   container_name: owaszap_container
+  owaspzap:
+    build:
+      context: ./owaszap  # Asegúrate de que este directorio contenga tu Dockerfile
+    container_name: owaszap_container
+    networks:
+      - front_network
 
-  # nginx:
-  #   build:
-  #     context: ./nginx  # Asegúrate de que este directorio contenga tu Dockerfile
-  #   container_name: nginx_proxy
-  #   ports:
-  #     - "80:80"  # Expose port 80 for external traffic
-  #   volumes:
-  #     - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Nginx configuration
-  #   depends_on:
-  #     - flask-app  # Make sure Nginx starts after the app
-  #   networks:
-  #     - front_network
+  nginx:
+    build:
+      context: ./nginx  # Asegúrate de que este directorio contenga tu Dockerfile
+    container_name: nginx_proxy
+    ports:
+      - "80:80"  # Expose port 80 for external traffic
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf  # Nginx configuration
+    depends_on:
+      - flask-app  # Make sure Nginx starts after the app
+    networks:
+      - front_network
 
 
   mysql:
