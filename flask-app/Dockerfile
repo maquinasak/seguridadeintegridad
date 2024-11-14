@@ -29,11 +29,9 @@ COPY ./src .
 RUN pip install -r requirements.txt
 
 #elimino las claves generadas
-RUN rm cert.pem key.pem
-RUN rm host_ed25519_key.pem
+RUN rm cert.pem key.pem host_ed25519_key.pem
 
 # RUN openssl req -x509 -new -nodes -config openssl.cnf -out server.crt -keyout server.key
-RUN rm cert.pem key.pem host_ed25519_key.pem
 RUN openssl req -x509 -newkey rsa:4096 -nodes -config openssl.cnf -out cert.pem -keyout key.pem
 
 # Generate an RSA private key (2048 bits)
