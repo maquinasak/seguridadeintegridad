@@ -1,30 +1,39 @@
 
 services:
 
-  client_centos:
-    build:
-      context: ./centos  # Asegúrate de que este directorio contenga tu Dockerfile
-    container_name: centos_client  
-    restart: on-failure
-    command: ["sleep", "infinity"]
-    networks:
-      - front_network
+  # client_centos:
+  #   build:
+  #     context: ./centos  # Asegúrate de que este directorio contenga tu Dockerfile
+  #   container_name: centos_client  
+  #   restart: on-failure
+  #   command: ["sleep", "infinity"]
+  #   networks:
+  #     - front_network
 
-  client_ubuntu:
-    build:
-      context: ./ubuntu  # Asegúrate de que este directorio contenga tu Dockerfile
-    container_name: ubuntu_client  
-    restart: on-failure
-    command: ["sleep", "infinity"]
-    networks:
-      - front_network
+  # client_ubuntu:
+  #   build:
+  #     context: ./ubuntu  # Asegúrate de que este directorio contenga tu Dockerfile
+  #   container_name: ubuntu_client  
+  #   restart: on-failure
+  #   command: ["sleep", "infinity"]
+  #   networks:
+  #     - front_network
 
-  owaspzap:
-    build:
-      context: ./owaszap  # Asegúrate de que este directorio contenga tu Dockerfile
-    container_name: owaszap_container
-    networks:
-      - front_network
+  # owaspzap:
+  #   build:
+  #     context: ./owaszap  # Asegúrate de que este directorio contenga tu Dockerfile
+  #   container_name: owaszap_container
+  #   networks:
+  #     - front_network
+
+  # windows_service:
+  #   build:
+  #     context: ./winos
+  #   container_name: windows_container
+  #   command: powershell -Command "Start-Sleep -Seconds 3600"
+  #   networks:
+  #     - front_network
+
 
   nginx:
     build:
@@ -50,7 +59,7 @@ services:
       MYSQL_USER: user
       MYSQL_PASSWORD: password
     ports:
-      - "3306:3306"
+      - "3306"
     volumes:
       - ./mysql-data:/var/lib/mysql
       - ./scripts:/docker-entrypoint-initdb.d/
